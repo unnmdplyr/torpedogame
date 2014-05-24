@@ -60,6 +60,11 @@ public class CustomShip extends Ship implements Cloneable{
 		return max - min + 1;
 	}
 	
+	public Point determineExtent()
+	{
+		return new Point(getXExtent(), getYExtent());
+	}
+
 	public void addCoveredCell(Cell cell) {
 		coveredCells.add(cell);
 	}
@@ -79,19 +84,19 @@ public class CustomShip extends Ship implements Cloneable{
 	
 	public void positioningShipIntoUncoveredArea(final int tableSize)
 	{
-		Point pt = determineFreePlaceForShip(tableSize);
-		
-//		if ( pt.getX() > 4  ||  pt.getY() > 4 )
-//		{
-//			int ramp = 4;
-//			
-//			int xEx = getXExtent();
-//			int yEx = getYExtent();
-//			int per = ramp/4;
-//			per += ramp/4;
-//			
-//		}
-		moveToPosition(pt);
+//		Point pt = determineFreePlaceForShip(tableSize);
+//		
+////		if ( pt.getX() > 4  ||  pt.getY() > 4 )
+////		{
+////			int ramp = 4;
+////			
+////			int xEx = getXExtent();
+////			int yEx = getYExtent();
+////			int per = ramp/4;
+////			per += ramp/4;
+////			
+////		}
+//		moveToPosition(pt);
 	}
 	
 }

@@ -2,7 +2,7 @@ package ship;
 
 import customship.CustomShip;
 import table.Cell;
-
+import table.Point;
 import junit.framework.TestCase;
 
 public class ShipContainerTest extends TestCase {
@@ -229,7 +229,45 @@ public class ShipContainerTest extends TestCase {
 		}
 	}
 
-	
+
+	//	Ship is already on		Place this ship
+	//	the table.				on the table without
+	//							collision.
+	//  - - - - - - - -           - - - - - - - - 
+	// |1 1 1 1		   |         |1 1 1 1		 |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	//  - - - - - - - -           - - - - - - - - 
+	public void testDoesShipCollideWithOthers()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			ship.addCoveredCell(new Cell(1, x, 0));
+		}
+
+		shipContainer.addShip(ship);
+		
+		CustomShip shipToPlace = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			shipToPlace.addCoveredCell(new Cell(1, x, 0));
+		}
+		
+		for (int y=0; y < 8; ++y)
+		for (int x=0; x < 8; ++x) {
+			Point offset = new Point(x, y);
+			assertEquals( (x < 4  &&  y < 1),
+						shipContainer.doesShipCollideWithOthers(shipToPlace, offset) );
+		}
+
+	}
 	
 	
 }

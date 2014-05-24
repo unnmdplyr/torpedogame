@@ -6,10 +6,10 @@ public class PositionGenerator {
 
 	final Random rand = new Random();
 
-	public Point genereateNewPosition()
+	public Point genereateNewPosition(Point extent)
 	{
-		final int posX = rand.nextInt(tableSize-1);
-		final int posY = rand.nextInt(tableSize-1);
+		final int posX = rand.nextInt(tableSize - extent.getX());
+		final int posY = rand.nextInt(tableSize - extent.getY());
 
 		return new Point( posX, posY );
 	}

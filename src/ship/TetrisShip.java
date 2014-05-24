@@ -19,6 +19,12 @@ public class TetrisShip extends Ship {
 		return 2;
 	}
 
+	@Override
+	public Point determineExtent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public void generateCoveredCells(Point pt) {
 //		coveredCells.add(new Cell(1, 0, pt.getY() + 1));

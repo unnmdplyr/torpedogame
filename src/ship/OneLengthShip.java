@@ -1,5 +1,7 @@
 package ship;
 
+import table.Point;
+
 public class OneLengthShip extends Ship {
 
 	public OneLengthShip(ShipContainer shipContainer) {
@@ -14,6 +16,12 @@ public class OneLengthShip extends Ship {
 	@Override
 	public int getYExtent() {
 		return 1;
+	}
+
+	@Override
+	public Point determineExtent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

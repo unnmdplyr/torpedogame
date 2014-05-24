@@ -1,6 +1,8 @@
 package ship;
 
 import table.Cell;
+import table.Point;
+import customship.CustomShip;
 import customship.CustomShipLoader;
 import junit.framework.TestCase;
 
@@ -12,7 +14,7 @@ public class CustomShipTest extends TestCase {
 		ShipContainer shipContainer = new ShipContainer();
 
 		CustomShipLoader customShipLoader
-							= new CustomShipLoader("test\\ship\\2_four_lenght_ships.txt", shipContainer, 8);
+							= new CustomShipLoader("test/ship/2_four_lenght_ships.txt", shipContainer, 8);
 		
 		for ( Ship ship : shipContainer )
 		{
@@ -27,7 +29,7 @@ public class CustomShipTest extends TestCase {
 		assertEquals(true, true);
 	}
 
-	
+	//	Helper function. Not Test case
 	private void checkCellsInShip(Cell cell, final int tableSize)
 	{
 //		System.out.println( "  x: " + cell.getX() + " y: " + cell.getY());
@@ -41,4 +43,80 @@ public class CustomShipTest extends TestCase {
 			testCustomShips();
 	}
 	
+	
+	public void testDetermineExtent4LengthShipUpperLeftAlongXAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int x = 0; x < 4; x++) {			
+			ship.addCoveredCell(new Cell(1, x, 0));
+		}
+		
+		Point pt = ship.determineExtent();
+		
+		assertEquals( true, pt.getX() == 4  &&  pt.getY() == 1 );
+	}
+	
+	public void testDetermineExtent4LengthShipUpperLeftAlongYAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int y = 0; y < 4; y++) {			
+			ship.addCoveredCell(new Cell(1, 0, y));
+		}
+		
+		Point pt = ship.determineExtent();
+		
+		assertEquals( true, pt.getX() == 1  &&  pt.getY() == 4 );
+	}
+	
+	public void testDetermineExtent4LengthShipLowerRightAlongYAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int y = 4; y < 8; y++) {			
+			ship.addCoveredCell(new Cell(1, 7, y));
+		}
+		
+		Point pt = ship.determineExtent();
+		
+		assertEquals( true, pt.getX() == 1  &&  pt.getY() == 4 );
+	}
+	
+	public void testDetermineExtent4LengthShipLowerRightAlongXAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int x = 4; x < 8; x++) {			
+			ship.addCoveredCell(new Cell(1, x, 7));
+		}
+		
+		Point pt = ship.determineExtent();
+		
+		assertEquals( true, pt.getX() == 4  &&  pt.getY() == 1 );
+	}
+	
+	public void testDetermineExtentTetrisShipLowerRightAlongXAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int x = 5; x < 8; x++) {			
+			ship.addCoveredCell(new Cell(1, x, 7));
+		}
+		ship.addCoveredCell(new Cell(1, 6, 6));
+		
+		Point pt = ship.determineExtent();
+		
+		assertEquals( true, pt.getX() == 3  &&  pt.getY() == 2 );
+	}
 }
