@@ -119,4 +119,34 @@ public class CustomShipTest extends TestCase {
 		
 		assertEquals( true, pt.getX() == 3  &&  pt.getY() == 2 );
 	}
+	
+	//	Moving the ship			... to this position.
+	//	from this position...
+	//  - - - - - - - -           - - - - - - - - 
+	// |1 1 1 1		   |         |				 |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |		  1 1 1 1|
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	//  - - - - - - - -           - - - - - - - - 
+	public void testMoveToPosition()
+	{
+		ShipContainer shipContainer = new ShipContainer();
+		CustomShip ship = new CustomShip(shipContainer);
+	
+		for (int x=0; x < 4; x++) {
+			ship.addCoveredCell(new Cell(1, x, 0));
+		}
+		
+		Point offset = new Point(4, 4);
+		ship.moveToPosition(offset);
+		
+		for (int x=4; x < 8; x++) {
+			assertEquals( true, ship.doesShipCoverThePosition(x, 4) );
+		}
+	}
 }
+

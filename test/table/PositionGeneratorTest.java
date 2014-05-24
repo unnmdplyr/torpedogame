@@ -24,8 +24,8 @@ public class PositionGeneratorTest extends TestCase {
 		for (int i = 0; i < 1000; i++) {
 			Point offset = positionGenerator.genereateNewPosition(extent);
 			
-			assertEquals( true, offset.getX() > -1  &&  offset.getX() < 4
-							&&  offset.getY() > -1  &&  offset.getY() < tableSize - 1 );
+			assertEquals( true, offset.getX() > -1  &&  offset.getX() < 5
+							&&  offset.getY() > -1  &&  offset.getY() < tableSize );
 		}
 		
 	}
