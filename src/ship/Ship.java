@@ -6,6 +6,7 @@ import java.util.List;
 
 import table.Cell;
 import table.Point;
+import table.PositionGenerator;
 
 public abstract class Ship implements Iterable<Cell>
 {
@@ -17,6 +18,34 @@ public abstract class Ship implements Iterable<Cell>
 
 	public Ship(ShipContainer shipContainer) {
 		this.shipContainer = shipContainer;
+	}
+
+	
+	public Point determinePlaceForTheShip(final int tableSize)
+	{
+		final PositionGenerator positionGenerator = new PositionGenerator(tableSize);
+		final Point extent = determineExtent();
+		Point offset = null;
+
+		while ( true )
+		{
+			offset = positionGenerator.genereateNewPosition(extent);
+			
+			if ( !doesShipCollideWithOthers(offset) )
+				return offset;
+		}
+	}
+	
+	public boolean doesShipCollideWithOthers( final Point offset )
+	{
+		final Point extent = determineExtent();
+
+		for (int y = offset.getY(); y < offset.getY() + extent.getY(); ++y)
+		for (int x = offset.getX(); x < offset.getX() + extent.getX(); ++x)
+			if ( shipContainer.isPositionAlreadyCovered(x, y) )
+				return true;
+
+		return false;
 	}
 
 	public boolean doesShipCoverThePosition( final int posX, final int posY )

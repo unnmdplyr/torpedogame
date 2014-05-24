@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ship.ShipContainer;
 import table.Cell;
+import table.Point;
 
 public class CustomShipLoader {
 
@@ -33,7 +34,8 @@ public class CustomShipLoader {
 				
 				for (int i = 0; i < count; i++) {
 					CustomShip modShip = base.clone();
-					modShip.positioningShipIntoUncoveredArea(tableSize);
+					Point offset = modShip.determinePlaceForTheShip(tableSize);
+					modShip.moveToPosition(offset);
 					shipContainer.addShip(modShip);
 				}
 			}

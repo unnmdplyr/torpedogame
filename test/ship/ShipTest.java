@@ -1,7 +1,7 @@
 package ship;
 
 import table.Cell;
-
+import table.Point;
 import customship.CustomShip;
 import junit.framework.TestCase;
 
@@ -210,8 +210,123 @@ public class ShipTest extends TestCase {
 	
 	
 	
+
+	//	Ship is already on		Place this ship
+	//	the table.				on the table without
+	//							collision.
+	//  - - - - - - - -           - - - - - - - - 
+	// |1 1 1 1		   |         |1 1 1 1		 |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	//  - - - - - - - -           - - - - - - - - 
+	public void testDoesShipCollideWithOthers()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			ship.addCoveredCell(new Cell(1, x, 0));
+		}
+
+		shipContainer.addShip(ship);
+		
+		CustomShip shipToPlace = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			shipToPlace.addCoveredCell(new Cell(1, x, 0));
+		}
+		
+		for (int y=0; y < 8; ++y)
+		for (int x=0; x < 8; ++x) {
+			Point offset = new Point(x, y);
+			assertEquals( (x < 4  &&  y < 1),
+							shipToPlace.doesShipCollideWithOthers(offset) );
+		}
+	}
 	
 	
+	//	Ship is already on		Place this ship
+	//	the table.				on the table without
+	//							collision.
+	//  - - - - - - - -           - - - - - - - - 
+	// |			   |         |1 1 1 1		 |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	//  - - - - - - - -           - - - - - - - - 
+	public void testDoesShipCollideWithOthersAnotherLowerRightAlongYAxis()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int y=4; y < 8; ++y ) {
+			ship.addCoveredCell(new Cell(1, 7, y));
+		}
+
+		shipContainer.addShip(ship);
+		
+		CustomShip shipToPlace = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			shipToPlace.addCoveredCell(new Cell(1, x, 0));
+		}
+		
+		for (int y=0; y < 8; ++y)
+		for (int x=0; x < 8; ++x) {
+			Point offset = new Point(x, y);
+			assertEquals( (x > 3  &&  y > 3),
+							shipToPlace.doesShipCollideWithOthers(offset) );
+		}
+	}
+	
+	
+	//	Ship is already on		Place this ship
+	//	the table.				on the table without
+	//							collision.
+	//  - - - - - - - -           - - - - - - - - 
+	// |			   |         |1 1 1 1		 |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			   |         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	// |			  1|         |			     |
+	//  - - - - - - - -           - - - - - - - - 
+	public void testDeterminePlaceForTheShip()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int y=4; y < 8; ++y ) {
+			ship.addCoveredCell(new Cell(1, 7, y));
+		}
+
+		shipContainer.addShip(ship);
+		
+		CustomShip shipToPlace = new CustomShip(shipContainer);
+		
+		for ( int x=0; x < 4; ++x ) {
+			shipToPlace.addCoveredCell(new Cell(1, x, 0));
+		}
+
+		for (int i=0; i < 1000; i++)
+		{
+			Point offset = shipToPlace.determinePlaceForTheShip(8);
+			assertEquals( true, (offset.getX() < 4  &&  offset.getY() > 3)
+							||  (offset.getX() < 5  &&  offset.getY() < 4) );
+		}
+
+	}
 	
 	
 	

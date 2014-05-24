@@ -75,28 +75,5 @@ public class CustomShip extends Ship implements Cloneable{
 			coveredCell.setY(coveredCell.getY() + upperLeft.getY() );
 		}
 	}
-	
-//	@Override
-//	public void generateCoveredCells(Point pt) {
-//		moveToPosition(pt);
-//	}
-	
-	
-	public void positioningShipIntoUncoveredArea(final int tableSize)
-	{
-//		Point pt = determineFreePlaceForShip(tableSize);
-//		
-////		if ( pt.getX() > 4  ||  pt.getY() > 4 )
-////		{
-////			int ramp = 4;
-////			
-////			int xEx = getXExtent();
-////			int yEx = getYExtent();
-////			int per = ramp/4;
-////			per += ramp/4;
-////			
-////		}
-//		moveToPosition(pt);
-	}
-	
+
 }
