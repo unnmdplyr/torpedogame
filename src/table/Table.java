@@ -7,8 +7,8 @@ public class Table {
 
 	private final int TABLE_WIDTH = 8;
 	private final int size;
-	ShipContainer shipContainer;
-//	private Cell[][] cells;
+	private ShipContainer shipContainer;
+
 	
 	public int getSize() {
 		return size;
@@ -19,7 +19,6 @@ public class Table {
 		size = TABLE_WIDTH;
 		this.shipContainer = new ShipContainer();
 		generateShips();
-//		initCells();
 	}
 
 	public Table(int size) {
@@ -29,13 +28,11 @@ public class Table {
 		this.size = size;
 		this.shipContainer = new ShipContainer();
 		generateShips();
-//		initCells();
 	}
 
 	
 	private void generateShips()
 	{
-//		shipContainer.generateShips(size);
 		shipContainer.loadShips(size);
 	}
 	
@@ -48,5 +45,14 @@ public class Table {
 		return shipContainer.isPositionAlreadyCovered(posX, posY);
 	}
 
+	public int shotHitBy(int posX, int posY)
+	{
+		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
+			throw new IllegalArgumentException("The widht and height: (" + posX
+					+ "; " + posY + ")" );
+
+		return shipContainer.positionCoveredBy(posX, posY);
+	}
+	
 	
 }

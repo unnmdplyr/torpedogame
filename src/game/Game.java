@@ -12,10 +12,24 @@ public class Game {
 		for ( int y=0; y < 8; ++y )
 		{			
 			for ( int x=0; x < 8; ++x )
-				System.out.print( (table.isShotHit(x, y) ? 'X' : '~') + " ");
+			{
+				int shipId = table.shotHitBy(x, y);
+				
+				System.out.print( ( shipId > -1 ? convertShipIdToChar(shipId) : '~') + " ");
+			}
+				
 
 			System.out.print( "\n" );
 		}
 		
+	}
+	
+	
+	private static char convertShipIdToChar(int shipId)
+	{
+		if ( shipId < 10 )
+			return (char)(48 + shipId);
+		else
+			return (char)(55 + shipId);
 	}
 }

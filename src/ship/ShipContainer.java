@@ -17,6 +17,7 @@ public class ShipContainer implements Iterable<Ship> {
 	}
 
 	public void addShip(Ship ship) {
+		ship.setShipId(ships.size());
 		ships.add(ship);
 	}
 
@@ -31,6 +32,16 @@ public class ShipContainer implements Iterable<Ship> {
 		return false;
 	}
 
+	//	@return	With -1 if not covered by any ships. Otherwise with the id of the ship.
+	public int positionCoveredBy(int posX, int posY)
+	{	
+		for ( Ship ship : ships )
+		{
+			if ( ship.doesShipCoverThePosition(posX, posY) )
+				return ship.getShipId();
+		}
+		return -1;
+	}
 
 
 	//	Test purpose only	

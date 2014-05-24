@@ -13,15 +13,12 @@ public class CustomShipTest extends TestCase {
 	{
 		ShipContainer shipContainer = new ShipContainer();
 
-		CustomShipLoader customShipLoader
-							= new CustomShipLoader("test/ship/2_four_lenght_ships.txt", shipContainer, 8);
+		new CustomShipLoader("test/ship/2_four_lenght_ships.txt", shipContainer, 8);
 		
 		for ( Ship ship : shipContainer )
 		{
-//			System.out.println("new Ship: ");
 			for ( Cell cell : ship )
 			{
-//				System.out.println(" new Cell: ");
 				checkCellsInShip(cell, 8);
 			}
 		}
@@ -32,7 +29,6 @@ public class CustomShipTest extends TestCase {
 	//	Helper function. Not Test case
 	private void checkCellsInShip(Cell cell, final int tableSize)
 	{
-//		System.out.println( "  x: " + cell.getX() + " y: " + cell.getY());
 		assertEquals(true,	(cell.getX() > -1  &&  cell.getX() < tableSize)
 						&&  (cell.getY() > -1  &&  cell.getY() < tableSize) );
 	}

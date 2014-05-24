@@ -15,6 +15,15 @@ public abstract class Ship implements Iterable<Cell>
 	
 	protected ShipContainer shipContainer;
 	
+	private int shipId;
+	
+	public int getShipId() {
+		return shipId;
+	}
+
+	public void setShipId(int shipId) {
+		this.shipId = shipId;
+	}
 
 	public Ship(ShipContainer shipContainer) {
 		this.shipContainer = shipContainer;
