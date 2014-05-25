@@ -29,6 +29,18 @@ public abstract class Ship implements Iterable<Cell>
 		this.shipContainer = shipContainer;
 	}
 
+	//	@return With true if the shot hit. With false if it is missed.
+	public boolean getShot(final int posX, final int posY)
+	{
+		for ( Cell cell : this )
+			if ( cell.isPositionCovered(posX, posY) )
+			{
+				cell.setValue(2);
+				return true;
+			}
+
+		return false;
+	}
 	
 	public Point determinePlaceForTheShip(final int tableSize)
 	{
@@ -59,7 +71,7 @@ public abstract class Ship implements Iterable<Cell>
 
 	public boolean doesShipCoverThePosition( final int posX, final int posY )
 	{
-		for ( final Cell cell : coveredCells )
+		for ( final Cell cell : this )
 		{
 			if ( cell.isPositionCovered(posX, posY) )
 				return true;
@@ -67,6 +79,14 @@ public abstract class Ship implements Iterable<Cell>
 		return false;
 	}
 
+	public boolean isAlreadySunk()
+	{
+		for ( final Cell cell : this )
+			if ( cell.getValue() != 2 )
+				return false;
+
+		return true;
+	}
 
 	public abstract Point determineExtent();
 	public abstract int getXExtent();

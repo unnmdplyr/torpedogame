@@ -36,23 +36,36 @@ public class Table {
 		shipContainer.loadShips(size);
 	}
 	
-	public boolean isShotHit(int posX, int posY)
+	public boolean isShotHit(final int posX, final int posY)
 	{
-		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
-			throw new IllegalArgumentException("The widht and height: (" + posX
-					+ "; " + posY + ")" );
+		checkPositions(posX, posY);
 
 		return shipContainer.isPositionAlreadyCovered(posX, posY);
 	}
 
-	public int shotHitBy(int posX, int posY)
+	public int shotHitBy(final int posX, final int posY)
 	{
-		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
-			throw new IllegalArgumentException("The widht and height: (" + posX
-					+ "; " + posY + ")" );
+		checkPositions(posX, posY);
 
 		return shipContainer.positionCoveredBy(posX, posY);
 	}
 	
+	public int giveShotToShipAtPosition(final int posX, final int posY)
+	{
+		checkPositions(posX, posY);
+		
+		return shipContainer.giveShotToShipAtPosition(posX, posY);
+	}
 	
+	public boolean areAnyNotSunkShip()
+	{
+		return shipContainer.areAnyNotSunkShip();
+	}
+	
+	private void checkPositions(final int posX, final int posY) {
+		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
+			throw new IllegalArgumentException("The widht and height: (" + posX
+					+ "; " + posY + ")" );
+	}
+
 }

@@ -2,7 +2,7 @@ package ship;
 
 import customship.CustomShip;
 import table.Cell;
-import table.Point;
+
 import junit.framework.TestCase;
 
 public class ShipContainerTest extends TestCase {
@@ -230,6 +230,15 @@ public class ShipContainerTest extends TestCase {
 	}
 
 
+//	public void testGiveShotToShipAtPosition()
+//	{
+//		//	missing
+//	}
+//	
+//	public void testAreAnyNotSunkShip()
+//	{
+//		//	missing
+//	}
 	
 	
 }

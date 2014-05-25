@@ -325,15 +325,56 @@ public class ShipTest extends TestCase {
 			assertEquals( true, (offset.getX() < 4  &&  offset.getY() > 3)
 							||  (offset.getX() < 5  &&  offset.getY() < 4) );
 		}
+	}
 
+	
+	public void testGetShot()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int y=4; y < 8; ++y ) {
+			ship.addCoveredCell(new Cell(1, 7, y));
+		}
+
+		shipContainer.addShip(ship);
+
+		for ( int y=0; y < 8; ++y )
+		for ( int x=0; x < 8; ++x )
+			assertEquals( x == 7 && y > 3 , ship.getShot(x, y) );
 	}
 	
 	
+	public void testIsAlreadySunk()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int y=4; y < 8; ++y ) {
+			ship.addCoveredCell(new Cell(2, 7, y));
+		}
+
+		shipContainer.addShip(ship);
+		
+		assertEquals( true, ship.isAlreadySunk() );
+	}
 	
-	
-	
-	
-	
+	public void testIsAlreadySunkItIsNotYet()
+	{
+		ShipContainer shipContainer = new ShipContainer();		
+		CustomShip ship = new CustomShip(shipContainer);
+		
+		for ( int y=4; y < 8; ++y ) {
+			ship.addCoveredCell(new Cell(1, 7, y));
+		}
+
+		shipContainer.addShip(ship);
+
+		for ( int y=0; y < 8; ++y ) {
+			assertEquals( y > 3, ship.getShot(7, y) );
+			assertEquals( y == 7, ship.isAlreadySunk() );
+		}
+	}
 	
 	
 	
