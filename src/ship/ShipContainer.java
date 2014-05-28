@@ -1,5 +1,7 @@
 package ship;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,13 +14,34 @@ public class ShipContainer implements Iterable<Ship> {
 	
 
 	
-	public void loadShips(final int tableSize) {
-		new CustomShipLoader("ships.txt", this, tableSize);
+	public void loadShips(final int tableSize)
+	{
+		CustomShipLoader shipLoader = new CustomShipLoader(this, tableSize);
+		
+		try ( FileReader fil = new FileReader("D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt"); )
+		{
+			shipLoader.loadShipsFromStream(fil );
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addShip(Ship ship) {
 		ship.setShipId(ships.size());
 		ships.add(ship);
+	}
+
+	//	@return	With -1 if not covered by any ships. Otherwise with the id of the ship.
+	public int isShipAtPosition(final int posX, final int posY)
+	{	
+		for ( Ship ship : ships )
+		{
+			int shipState = ship.shipStateAtPosition(posX, posY);
+			if ( shipState > -1 )
+				return shipState;
+		}
+		return -1;
 	}
 
 

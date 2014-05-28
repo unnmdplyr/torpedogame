@@ -1,5 +1,9 @@
 package ship;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import table.Cell;
 import table.Point;
 import customship.CustomShip;
@@ -12,8 +16,17 @@ public class CustomShipTest extends TestCase {
 	public void testCustomShips()
 	{
 		ShipContainer shipContainer = new ShipContainer();
+		
+		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, 8);
+		
+		try ( FileReader fil = new FileReader("test/ship/2_four_lenght_ships.txt"); )
+		{
+			shipLoader.loadShipsFromStream(fil );
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		new CustomShipLoader("test/ship/2_four_lenght_ships.txt", shipContainer, 8);
 		
 		for ( Ship ship : shipContainer )
 		{
@@ -22,8 +35,28 @@ public class CustomShipTest extends TestCase {
 				checkCellsInShip(cell, 8);
 			}
 		}
+	}
+	
+	public void testCustomShipLoadFromString()
+	{
+		ShipContainer shipContainer = new ShipContainer();
 		
-		assertEquals(true, true);
+		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, 8);
+		
+		String shipData = shipLoader.readFileContent("D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt");
+		
+		java.io.Reader reader = new java.io.StringReader(shipData);
+		
+		shipLoader.loadShipsFromStream(reader);
+		
+
+		int shipNumber = 0;
+		
+		for ( final Ship ship : shipContainer ) {
+			++shipNumber;
+		}
+
+		assertEquals( true, shipNumber > 0 );
 	}
 
 	//	Helper function. Not Test case

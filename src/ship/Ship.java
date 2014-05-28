@@ -87,6 +87,16 @@ public abstract class Ship implements Iterable<Cell>
 
 		return true;
 	}
+	
+	//	@return	With -1 if the position is not covered by the ship. With 1 if the
+	//			position is covered but it is not yet hit. With 2 if it is already hit.
+	public int shipStateAtPosition( final int posX, final int posY )
+	{
+		for ( final Cell cell : this )
+			if ( cell.isPositionCovered(posX, posY) )
+				return cell.getValue();
+		return -1;
+	}
 
 	public abstract Point determineExtent();
 	public abstract int getXExtent();
