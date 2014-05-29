@@ -2,7 +2,10 @@ package game;
 
 
 import network.ClientProtocol;
+import network.NetworkRole;
 import network.ServerProtocol;
+import network.TcpConnection;
+import network.TcpConnectionFactory;
 
 
 public class Game {
@@ -24,8 +27,11 @@ public class Game {
 		{
 			if ( args.length > 1 )	userName = args[1];
 
-			ServerProtocol server = new ServerProtocol( portNumber, tableSize, userName );
-			server.establishCommunication();
+			TcpConnection server = new TcpConnectionFactory().create(NetworkRole.SERVER);
+			server.start();
+			server.negotiation();
+//			ServerProtocol server = new ServerProtocol( portNumber, tableSize, userName );
+//			server.establishCommunication();
 			return;
 		}
 		else if ( args[0].equalsIgnoreCase("client") )
@@ -35,9 +41,12 @@ public class Game {
 
 			if ( args.length > 1 ) hostName = args[1];
 			if ( args.length > 2 ) userName = args[2];
-				
-			ClientProtocol client = new ClientProtocol(portNumber, hostName, userName);
-			client.establishCommunication();
+
+			TcpConnection client = new TcpConnectionFactory().create(NetworkRole.CLIENT);
+			client.start();
+			client.negotiation();
+//			ClientProtocol client = new ClientProtocol(portNumber, hostName, userName);
+//			client.establishCommunication();
 			return;
 		}
 		else {

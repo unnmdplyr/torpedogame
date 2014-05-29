@@ -1,10 +1,9 @@
 package network;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
+
+import message.MessageAssembler;
 
 
 public class Server extends TcpConnection
@@ -19,19 +18,17 @@ public class Server extends TcpConnection
 		this.serverSocket = serverSocket;
 	}
 
-	public void start()
+	@Override
+	protected void networkRoleSpecificInit() throws IOException
 	{
-		try {
-			setServerSocket( new ServerSocket(getPortNumber()) );
-			setClientSocket( getServerSocket().accept() );
-			getClientSocket().setTcpNoDelay(true);
-			
-			setPrinter( new PrintWriter(getClientSocket().getOutputStream(), true) );
-			setReader( new BufferedReader(new InputStreamReader( getClientSocket().getInputStream() )));
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		setServerSocket( new ServerSocket(getPortNumber()) );
+		setClientSocket( getServerSocket().accept() );
+		System.out.println( "Client joined to the server." );
 	}
 
+	@Override
+	protected void networkRoleSpecificNegotiation() {
+		
+		getPrinter().println( new MessageAssembler().createInit(8,8) );
+	}
 }

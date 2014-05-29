@@ -2,6 +2,7 @@ package network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -65,4 +66,28 @@ public abstract class TcpConnection {
 		return stringBuilder.toString();	
 	}
 
+	
+	public void start() {
+		try {
+			networkRoleSpecificInit();
+			getClientSocket().setTcpNoDelay(true);
+			
+			setPrinter( new PrintWriter(getClientSocket().getOutputStream(), true) );
+			setReader( new BufferedReader(new InputStreamReader( getClientSocket().getInputStream() )));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	protected abstract void networkRoleSpecificInit() throws IOException;
+	
+	
+	public void negotiation()
+	{
+		networkRoleSpecificNegotiation();
+	}
+	
+	protected abstract void networkRoleSpecificNegotiation();
+	
 }
