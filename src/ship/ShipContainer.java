@@ -56,30 +56,30 @@ public class ShipContainer implements Iterable<Ship> {
 	}
 
 	//	@return	With -1 if not covered by any ships. Otherwise with the id of the ship.
-	public int positionCoveredBy(final int posX, final int posY)
-	{	
-		for ( Ship ship : ships )
-		{
-			if ( ship.doesShipCoverThePosition(posX, posY) )
-				return ship.getShipId();
-		}
-		return -1;
-	}
+//	public int positionCoveredBy(final int posX, final int posY)
+//	{	
+//		for ( Ship ship : ships )
+//		{
+//			if ( ship.doesShipCoverThePosition(posX, posY) )
+//				return ship.getShipId();
+//		}
+//		return -1;
+//	}
 
 	//	@return	With -1 if not covered by any ships. Otherwise with the id of the ship.
-	public int giveShotToShipAtPosition(final int posX, final int posY)
-	{	
-		for ( Ship ship : ships )
-		{
-			if ( ship.doesShipCoverThePosition(posX, posY) )
-			{
-				if ( ship.getShot(posX, posY) == false )
-					System.out.println("This shot shold be hit.");
-				return ship.getShipId();
-			}
-		}
-		return -1;
-	}
+//	public int giveShotToShipAtPosition(final int posX, final int posY)
+//	{	
+//		for ( Ship ship : ships )
+//		{
+//			if ( ship.doesShipCoverThePosition(posX, posY) )
+//			{
+//				if ( ship.getShot(posX, posY) == false )
+//					System.out.println("This shot shold be hit.");
+//				return ship.getShipId();
+//			}
+//		}
+//		return -1;
+//	}
 	
 	public boolean areAnyNotSunkShip()
 	{

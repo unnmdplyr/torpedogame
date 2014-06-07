@@ -48,54 +48,54 @@ public class Table {
 	}
 
 	
-	private void generateShips()
-	{
-		shipContainer.loadShips(size);
-	}
+//	private void generateShips()
+//	{
+//		shipContainer.loadShips(size);
+//	}
 	
-	public boolean isShotHit(final int posX, final int posY)
-	{
-		checkPositions(posX, posY);
+//	public boolean isShotHit(final int posX, final int posY)
+//	{
+//		checkPositions(posX, posY);
+//
+//		return shipContainer.isPositionAlreadyCovered(posX, posY);
+//	}
 
-		return shipContainer.isPositionAlreadyCovered(posX, posY);
-	}
-
-	public int shotHitBy(final int posX, final int posY)
-	{
-		checkPositions(posX, posY);
-
-		return shipContainer.positionCoveredBy(posX, posY);
-	}
+//	public int shotHitBy(final int posX, final int posY)
+//	{
+//		checkPositions(posX, posY);
+//
+//		return shipContainer.positionCoveredBy(posX, posY);
+//	}
 	
 	//	@return	With the shipId or -1 if there is no any ship at the position or -2
 	//			if the cell was already shoot and missed.
-	public int giveShotToShipAtPosition(final int posX, final int posY)
-	{
-		checkPositions(posX, posY);
-		
-		int shipId = shipContainer.giveShotToShipAtPosition(posX, posY);
-
-		if ( shipId < 0 )
-		{
-			if ( wasMissedAtPosition(posX, posY) )
-				return -2;
-			else
-				missedCells.add(new Cell(0, posX, posY));
-		}
-
-		return shipId;
-	}
+//	public int giveShotToShipAtPosition(final int posX, final int posY)
+//	{
+//		checkPositions(posX, posY);
+//		
+//		int shipId = shipContainer.giveShotToShipAtPosition(posX, posY);
+//
+//		if ( shipId < 0 )
+//		{
+//			if ( wasMissedAtPosition(posX, posY) )
+//				return -2;
+//			else
+//				missedCells.add(new Cell(0, posX, posY));
+//		}
+//
+//		return shipId;
+//	}
 	
 	public boolean areAnyNotSunkShip()
 	{
 		return shipContainer.areAnyNotSunkShip();
 	}
 	
-	private void checkPositions(final int posX, final int posY) {
-		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
-			throw new IllegalArgumentException("The widht and height: (" + posX
-					+ "; " + posY + ")" );
-	}
+//	private void checkPositions(final int posX, final int posY) {
+//		if ( posX < 0  ||  posX > size-1  ||  posY < 0  ||  posY > size-1 )
+//			throw new IllegalArgumentException("The widht and height: (" + posX
+//					+ "; " + posY + ")" );
+//	}
 	
 	private boolean wasMissedAtPosition( final int x, final int y )
 	{

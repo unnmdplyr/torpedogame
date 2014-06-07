@@ -28,9 +28,9 @@ public class MessageParser {
 				continue;
 			
 			if ( width < 0 )
-				width  = Integer.parseInt(parts[i]);
+				width  = Integer.parseInt(parts[i].trim());
 			else
-				height = Integer.parseInt(parts[i]);
+				height = Integer.parseInt(parts[i].trim());
 		}
 		
 		return new Point(width, height);

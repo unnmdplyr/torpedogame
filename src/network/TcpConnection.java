@@ -51,6 +51,7 @@ public abstract class TcpConnection {
 	{
 		printer.println(message);
 		printer.flush();
+		System.out.println("Message sent: " + message + "\n");
 	}
 	
 	public String receiveMessage() throws IOException
@@ -63,6 +64,7 @@ public abstract class TcpConnection {
 			stringBuilder.append( line ).append("\n");
 		}
 		
+		System.out.println("Message received: " + stringBuilder.toString() + "\n");
 		return stringBuilder.toString();	
 	}
 
@@ -85,9 +87,28 @@ public abstract class TcpConnection {
 	
 	public void negotiation()
 	{
-		networkRoleSpecificNegotiation();
+		try {
+			networkRoleSpecificNegotiation();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	protected abstract void networkRoleSpecificNegotiation();
+	protected abstract void networkRoleSpecificNegotiation() throws IOException;
+	
+	
+	@Override
+	public void finalize()
+	{
+		if ( !clientSocket.isClosed() )
+			try {
+				clientSocket.close();
+				reader.close();
+				printer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
 	
 }

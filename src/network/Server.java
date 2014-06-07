@@ -27,8 +27,21 @@ public class Server extends TcpConnection
 	}
 
 	@Override
-	protected void networkRoleSpecificNegotiation() {
+	protected void networkRoleSpecificNegotiation() throws IOException
+	{
+		sendMessage( new MessageAssembler().createInit(8,8) );
+	}
+	
+	@Override
+	public void finalize()
+	{
+		super.finalize();
 		
-		getPrinter().println( new MessageAssembler().createInit(8,8) );
+		if ( !serverSocket.isClosed() )
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 }
