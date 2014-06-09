@@ -1,9 +1,8 @@
 package game;
 
 
-import network.ClientProtocol;
+import message.MessageParser;
 import network.NetworkRole;
-import network.ServerProtocol;
 import network.TcpConnection;
 import network.TcpConnectionFactory;
 
@@ -17,18 +16,17 @@ public class Game {
 			return;
 		}
 
-		final int portNumber = 1146;
-		final int tableSize = 8;
-		final String defaultName = "default player";
-
-		String userName = defaultName;
 
 		if ( args[0].equalsIgnoreCase("server") )
 		{
-			if ( args.length > 1 )	userName = args[1];
+			ServerInitData initData = new ServerInitData();
+
+			if ( args.length > 1 ) initData.userName = args[1];
+			if ( args.length > 2 ) initData.tableSize = new MessageParser().parseTableSize(args[2]).getX(); 
+			if ( args.length > 3 ) initData.portNumber = Integer.parseInt(args[3]);
 
 			TcpConnection server = new TcpConnectionFactory().create(NetworkRole.SERVER);
-			server.start();
+			server.start(initData);
 			server.negotiation();
 //			ServerProtocol server = new ServerProtocol( portNumber, tableSize, userName );
 //			server.establishCommunication();
@@ -36,14 +34,14 @@ public class Game {
 		}
 		else if ( args[0].equalsIgnoreCase("client") )
 		{
-			final String defaultHostName = "127.0.0.1";
-			String hostName = defaultHostName;
-
-			if ( args.length > 1 ) hostName = args[1];
-			if ( args.length > 2 ) userName = args[2];
+			ClientInitData initData = new ClientInitData();
+			
+			if ( args.length > 1 ) initData.userName = args[1];
+			if ( args.length > 2 ) initData.hostName = args[2];
+			if ( args.length > 3 ) initData.portNumber = Integer.parseInt(args[3]);
 
 			TcpConnection client = new TcpConnectionFactory().create(NetworkRole.CLIENT);
-			client.start();
+			client.start(initData);
 			client.negotiation();
 //			ClientProtocol client = new ClientProtocol(portNumber, hostName, userName);
 //			client.establishCommunication();
@@ -88,11 +86,13 @@ public class Game {
 		System.out.println("The argument must contain at least one argument. Server or client.\n");
 		System.out.println("Parameters in case of server:");
 		System.out.println("\t[0]: server. Case is ignored.");
-		System.out.println("\t[1]: user name.\n");
+		System.out.println("\t[1]: user name. [defaultPlayer]");
+		System.out.println("\t[2]: port number. [1146]\n");
 		System.out.println("Parameters in case of client:");
 		System.out.println("\t[0]: client. Case is ignored.");
-		System.out.println("\t[1]: host name.");
-		System.out.println("\t[2]: user name.");
+		System.out.println("\t[1]: user name. [defaultPlayer]");
+		System.out.println("\t[2]: host name. [127.0.0.1]");
+		System.out.println("\t[2]: port number. [1146]\n");
 	}
 //	private static char convertShipIdToChar(int shipId)
 //	{

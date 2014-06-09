@@ -1,5 +1,7 @@
 package message;
 
+import java.util.StringTokenizer;
+
 import table.Point;
 
 public class MessageParser {
@@ -34,5 +36,23 @@ public class MessageParser {
 		}
 		
 		return new Point(width, height);
+	}
+	
+	//	Accepted formats: " 8 ", "8 9", "8, 9", " 8 , 9 " " 8 9 "
+	public Point parseTableSize(String message)
+	{
+		StringTokenizer tokenizer = new StringTokenizer(message, ", ");
+		String widthStr = null;
+		while ( tokenizer.hasMoreTokens() )
+			if ( !( widthStr = tokenizer.nextToken()).equals("") )
+				break;
+
+		String heightStr = null;
+		while ( tokenizer.hasMoreTokens() )
+			if ( !( heightStr = tokenizer.nextToken()).equals("") )
+				break;
+
+		return new Point( Integer.parseInt(widthStr)
+						, Integer.parseInt(heightStr != null  ?  heightStr  :  "0") );
 	}
 }

@@ -50,6 +50,45 @@ public class MessageParserTest extends TestCase {
 	}
 	
 	
+	public void testParseTableSizeWithoutComma()
+	{
+		Point dimensions = new MessageParser().parseTableSize( "8 9" );
+		
+		assertEquals( dimensions.getX(), 8 );
+		assertEquals( dimensions.getY(), 9 );
+	}
+	
+	public void testParseTableSizeWithoutCommaWithMoreSpace()
+	{
+		Point dimensions = new MessageParser().parseTableSize( " 8  9 " );
+		
+		assertEquals( dimensions.getX(), 8 );
+		assertEquals( dimensions.getY(), 9 );
+	}
+	
+	public void testParseTableSizeWithCommaWithMoreSpace()
+	{
+		Point dimensions = new MessageParser().parseTableSize( " 8, 9 " );
+		
+		assertEquals( dimensions.getX(), 8 );
+		assertEquals( dimensions.getY(), 9 );
+	}
+	
+	public void testParseTableSizeWithComma()
+	{
+		Point dimensions = new MessageParser().parseTableSize( "8, 9" );
+		
+		assertEquals( dimensions.getX(), 8 );
+		assertEquals( dimensions.getY(), 9 );
+	}
+	
+	public void testParseTableSizeWithOnlyOneNumber()
+	{
+		Point dimensions = new MessageParser().parseTableSize( " 8 " );
+		
+		assertEquals( dimensions.getX(), 8 );
+		assertEquals( dimensions.getY(), 0 );
+	}
 }
 
 

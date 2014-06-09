@@ -1,5 +1,7 @@
 package network;
 
+import game.InitData;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,13 +14,6 @@ public abstract class TcpConnection {
 
 	private PrintWriter printer;
 	private BufferedReader reader;
-
-	
-	private static final int portNumber = 1146;
-
-	public static int getPortNumber() {
-		return portNumber;
-	}
 
 	
 	public PrintWriter getPrinter() {
@@ -69,9 +64,9 @@ public abstract class TcpConnection {
 	}
 
 	
-	public void start() {
+	public void start(InitData initData) {
 		try {
-			networkRoleSpecificInit();
+			networkRoleSpecificInit(initData);
 			getClientSocket().setTcpNoDelay(true);
 			
 			setPrinter( new PrintWriter(getClientSocket().getOutputStream(), true) );
@@ -82,7 +77,7 @@ public abstract class TcpConnection {
 		}	
 	}
 	
-	protected abstract void networkRoleSpecificInit() throws IOException;
+	protected abstract void networkRoleSpecificInit(InitData initData) throws IOException;
 	
 	
 	public void negotiation()

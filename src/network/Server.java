@@ -1,5 +1,7 @@
 package network;
 
+import game.InitData;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -19,9 +21,9 @@ public class Server extends TcpConnection
 	}
 
 	@Override
-	protected void networkRoleSpecificInit() throws IOException
+	protected void networkRoleSpecificInit(InitData initData) throws IOException
 	{
-		setServerSocket( new ServerSocket(getPortNumber()) );
+		setServerSocket( new ServerSocket(initData.portNumber) );
 		setClientSocket( getServerSocket().accept() );
 		System.out.println( "Client joined to the server." );
 	}

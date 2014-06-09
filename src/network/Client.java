@@ -1,5 +1,8 @@
 package network;
 
+import game.ClientInitData;
+import game.InitData;
+
 import java.io.IOException;
 import java.net.Socket;
 
@@ -8,24 +11,15 @@ import table.Point;
 
 public class Client extends TcpConnection
 {
-	private String hostName;
-	
-	public Client() {
-	}
-
-	public Client(String hostName) {
-		this.hostName = hostName;
-	}
-
 	@Override
-	protected void networkRoleSpecificInit() throws IOException
+	protected void networkRoleSpecificInit(InitData initD) throws IOException
 	{
-		final String defaultHostName = "127.0.0.1";
+		ClientInitData initData = (ClientInitData)initD;
 
-		if ( hostName == null  ||  hostName.isEmpty() )
-			hostName = defaultHostName;
+		if ( initData.hostName == null  ||  initData.hostName.isEmpty() )
+			throw new IllegalArgumentException("The given hostname is invalid. " + initData.hostName );
 
-		setClientSocket( new Socket(hostName, getPortNumber()) );		
+		setClientSocket( new Socket(initData.hostName, initData.portNumber) );		
 	}
 
 	@Override
