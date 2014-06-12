@@ -6,10 +6,7 @@ import game.InitData;
 import java.io.IOException;
 import java.net.Socket;
 
-import message.MessageObjectifier;
-import message.MessageParser;
-import message.MessageTypes;
-import table.Point;
+import message.MessageType;
 import table.Reactor;
 
 public class Client extends TcpConnection
@@ -37,9 +34,10 @@ public class Client extends TcpConnection
 		
 		//	Init
 		String message = getReceiver().receiveMessage();
-		reactor.reactToMessage(message, MessageTypes.INIT_PREFIX);
-		
-	
+		reactor.reactToMessage(message, MessageType.INIT);
+
+		//	Name
+//		getSender().sendMessage();
 		
 	}
 }

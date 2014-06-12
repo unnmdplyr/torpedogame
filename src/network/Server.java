@@ -43,9 +43,9 @@ public class Server extends TcpConnection
 	{
 		super.finalize();
 		
-		if ( !serverSocket.isClosed() )
+		if ( !getServerSocket().isClosed() )
 			try {
-				serverSocket.close();
+				getServerSocket().close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
