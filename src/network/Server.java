@@ -1,6 +1,7 @@
 package network;
 
 import game.InitData;
+import game.ServerInitData;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,6 +11,10 @@ import message.MessageAssembler;
 
 public class Server extends TcpConnection
 {
+	public Server(Receiver reader, Sender writer) {
+		super(reader, writer);
+	}
+
 	private ServerSocket serverSocket;
 
 	public ServerSocket getServerSocket() {
@@ -31,7 +36,7 @@ public class Server extends TcpConnection
 	@Override
 	protected void networkRoleSpecificNegotiation() throws IOException
 	{
-		sendMessage( new MessageAssembler().createInit(8,8) );
+		getSender().sendMessage( new MessageAssembler().createInit(8,8) );
 	}
 	
 	@Override

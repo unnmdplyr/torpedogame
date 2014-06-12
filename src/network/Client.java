@@ -11,6 +11,10 @@ import table.Point;
 
 public class Client extends TcpConnection
 {
+	public Client(Receiver reader, Sender writer) {
+		super(reader, writer);
+	}
+
 	@Override
 	protected void networkRoleSpecificInit(InitData initD) throws IOException
 	{
@@ -26,7 +30,7 @@ public class Client extends TcpConnection
 	protected void networkRoleSpecificNegotiation() throws IOException {
 		
 		//	Init
-		String message = receiveMessage();
+		String message = getReceiver().receiveMessage();
 		Point tableDimensions = new MessageParser().parseInit(message);
 	
 		

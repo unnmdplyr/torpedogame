@@ -2,37 +2,28 @@ package network;
 
 import game.InitData;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
-public abstract class TcpConnection {
+public abstract class TcpConnection
+{
+	private Receiver reader;
+	private Sender writer;
 
-	private Socket clientSocket;
-
-	private PrintWriter printer;
-	private BufferedReader reader;
-
-	
-	public PrintWriter getPrinter() {
-		return printer;
-	}
-
-	public void setPrinter(PrintWriter printer) {
-		this.printer = printer;
-	}
-
-	public BufferedReader getReader() {
+	public Receiver getReceiver() {
 		return reader;
 	}
-
-	public void setReader(BufferedReader reader) {
+	public Sender getSender() {
+		return writer;
+	}
+	
+	public TcpConnection(Receiver reader, Sender writer) {
 		this.reader = reader;
+		this.writer = writer;
 	}
 
 
+	private Socket clientSocket;
 	
 	public Socket getClientSocket() {
 		return clientSocket;
@@ -41,36 +32,15 @@ public abstract class TcpConnection {
 	public void setClientSocket(Socket clientSocket) {
 		this.clientSocket = clientSocket;
 	}
-
-	public void sendMessage(final String message)
-	{
-		printer.println(message);
-		printer.flush();
-		System.out.println("Message sent: " + message + "\n");
-	}
 	
-	public String receiveMessage() throws IOException
-	{
-		StringBuilder stringBuilder = new StringBuilder();
-
-		String line;
-
-		while ( (line = reader.readLine()) != null ) {
-			stringBuilder.append( line ).append("\n");
-		}
-		
-		System.out.println("Message received: " + stringBuilder.toString() + "\n");
-		return stringBuilder.toString();	
-	}
-
 	
 	public void start(InitData initData) {
 		try {
 			networkRoleSpecificInit(initData);
 			getClientSocket().setTcpNoDelay(true);
 			
-			setPrinter( new PrintWriter(getClientSocket().getOutputStream(), true) );
-			setReader( new BufferedReader(new InputStreamReader( getClientSocket().getInputStream() )));
+			getReceiver().init( getClientSocket().getInputStream()  );
+			getSender  ().init( getClientSocket().getOutputStream() );
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -95,11 +65,11 @@ public abstract class TcpConnection {
 	@Override
 	public void finalize()
 	{
-		if ( !clientSocket.isClosed() )
+		if ( !getClientSocket().isClosed() )
 			try {
-				clientSocket.close();
-				reader.close();
-				printer.close();
+				getClientSocket().close();
+				getReceiver().close();
+				getSender().close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
