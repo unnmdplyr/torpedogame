@@ -32,7 +32,7 @@ public class NetworkReader implements Receiver {
 		}
 		
 		System.out.println("Message received: " + stringBuilder.toString() + "\n");
-		return stringBuilder.toString();	
+		return stringBuilder.toString();
 	}
 	
 	public void init( InputStream inputStream )

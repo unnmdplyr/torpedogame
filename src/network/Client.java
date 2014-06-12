@@ -6,13 +6,19 @@ import game.InitData;
 import java.io.IOException;
 import java.net.Socket;
 
+import message.MessageObjectifier;
 import message.MessageParser;
+import message.MessageTypes;
 import table.Point;
+import table.Reactor;
 
 public class Client extends TcpConnection
 {
-	public Client(Receiver reader, Sender writer) {
+	private Reactor reactor;
+
+	public Client(Receiver reader, Sender writer, Reactor reactor) {
 		super(reader, writer);
+		this.reactor = reactor;
 	}
 
 	@Override
@@ -31,7 +37,8 @@ public class Client extends TcpConnection
 		
 		//	Init
 		String message = getReceiver().receiveMessage();
-		Point tableDimensions = new MessageParser().parseInit(message);
+		reactor.reactToMessage(message, MessageTypes.INIT_PREFIX);
+		
 	
 		
 	}

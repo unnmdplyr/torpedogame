@@ -1,7 +1,6 @@
 package network;
 
 import game.InitData;
-import game.ServerInitData;
 
 import java.io.IOException;
 import java.net.ServerSocket;
