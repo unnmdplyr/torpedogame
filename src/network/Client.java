@@ -6,22 +6,26 @@ import game.InitData;
 import java.io.IOException;
 import java.net.Socket;
 
+import message.MessageAssembler;
 import message.MessageType;
 import table.Reactor;
 
 public class Client extends TcpConnection
 {
 	private Reactor reactor;
+	private MessageAssembler messageAssembler;
+	private ClientInitData initData;
 
-	public Client(Receiver reader, Sender writer, Reactor reactor) {
+	public Client(Receiver reader, Sender writer, Reactor reactor, MessageAssembler messageAssembler) {
 		super(reader, writer);
 		this.reactor = reactor;
+		this.messageAssembler = messageAssembler;
 	}
 
 	@Override
 	protected void networkRoleSpecificInit(InitData initD) throws IOException
 	{
-		ClientInitData initData = (ClientInitData)initD;
+		this.initData = (ClientInitData)initD;
 
 		if ( initData.hostName == null  ||  initData.hostName.isEmpty() )
 			throw new IllegalArgumentException("The given hostname is invalid. " + initData.hostName );
@@ -37,7 +41,7 @@ public class Client extends TcpConnection
 		reactor.reactToMessage(message, MessageType.INIT);
 
 		//	Name
-//		getSender().sendMessage();
+		getSender().sendMessage( messageAssembler.createName( initData.userName ) );
 		
 	}
 }

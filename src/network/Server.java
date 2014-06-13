@@ -1,17 +1,26 @@
 package network;
 
 import game.InitData;
+import game.ServerInitData;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import table.Reactor;
 import message.MessageAssembler;
+import message.MessageType;
 
 
 public class Server extends TcpConnection
 {
-	public Server(Receiver reader, Sender writer) {
+	private Reactor reactor;
+	private MessageAssembler messageAssembler;
+	private ServerInitData initData;
+
+	public Server(Receiver reader, Sender writer, Reactor reactor, MessageAssembler messageAssembler) {
 		super(reader, writer);
+		this.reactor = reactor;
+		this.messageAssembler = messageAssembler;
 	}
 
 	private ServerSocket serverSocket;
@@ -25,8 +34,10 @@ public class Server extends TcpConnection
 	}
 
 	@Override
-	protected void networkRoleSpecificInit(InitData initData) throws IOException
+	protected void networkRoleSpecificInit(InitData initD) throws IOException
 	{
+		this.initData = (ServerInitData)initD;
+
 		setServerSocket( new ServerSocket(initData.portNumber) );
 		setClientSocket( getServerSocket().accept() );
 		System.out.println( "Client joined to the server." );
@@ -35,7 +46,14 @@ public class Server extends TcpConnection
 	@Override
 	protected void networkRoleSpecificNegotiation() throws IOException
 	{
-		getSender().sendMessage( new MessageAssembler().createInit(8,8) );
+		//	Init
+		getSender().sendMessage( messageAssembler.createInit( initData.tableSize
+															, initData.tableSize) );
+		
+		//	Opponent Name
+		String message = getReceiver().receiveMessage();
+		reactor.reactToMessage(message, MessageType.NAME);
+
 	}
 	
 	@Override

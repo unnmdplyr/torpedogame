@@ -18,6 +18,10 @@ public class MessageObjectifier {
 				Point tableDimensions = messageParser.parseInit(message);
 				return new MsgInit( tableDimensions );
 
+			case NAME:
+				String name = messageParser.parseName(message);
+				return new MsgName( name );
+
 			default:
 				throw new IllegalArgumentException("The message couldn't be interpreted: " + message);
 		}

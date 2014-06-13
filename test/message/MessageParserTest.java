@@ -89,6 +89,38 @@ public class MessageParserTest extends TestCase {
 		assertEquals( dimensions.getX(), 8 );
 		assertEquals( dimensions.getY(), 0 );
 	}
+	
+	
+	public void testParseName()
+	{
+		String message = MessageTypes.NAME_PREFIX + " defaultPlayer";
+		
+		String name = new MessageParser().parseName(message);
+		
+		assertEquals( name, "defaultPlayer" );
+	}
+	
+	public void testParseNameWithMoreWhitespace()
+	{
+		String message = MessageTypes.NAME_PREFIX + "   defaultPlayer";
+		
+		String name = new MessageParser().parseName(message);
+		
+		assertEquals( name, "defaultPlayer" );
+	}
+	
+	public void testParseNameWithoutName()
+	{
+		try {
+			String message = MessageTypes.NAME_PREFIX + "    ";
+
+			String name = new MessageParser().parseName(message);
+		} catch ( IllegalArgumentException e ) {
+			return;
+		}
+		
+		fail("The message shouldn't contain a string which is interpreted as a name.");
+	}
 }
 
 

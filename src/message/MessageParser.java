@@ -55,4 +55,23 @@ public class MessageParser {
 		return new Point( Integer.parseInt(widthStr)
 						, Integer.parseInt(heightStr != null  ?  heightStr  :  "0") );
 	}
+
+	public String parseName(String message) {
+
+		int index = message.indexOf(MessageTypes.NAME_PREFIX);
+
+		if ( index < 0 )
+			throw new IllegalArgumentException( MessageTypes.NAME_MSG );
+
+		String[] parts = message.split(" ");
+
+		if ( !parts[0].equals(MessageTypes.NAME_PREFIX) )
+			throw new IllegalArgumentException("This is not NAME message: " + message);
+
+		for ( int i=1; i < parts.length; ++i )
+			if ( !parts[i].isEmpty() )
+				return parts[i];
+
+		throw new IllegalArgumentException("NAME message doesn't contain name.");
+	}
 }

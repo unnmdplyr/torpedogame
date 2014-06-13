@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import table.Reactor;
 import table.Table;
+import message.MessageAssembler;
 import message.MessageObjectifier;
 import message.MessageParser;
 
@@ -19,13 +20,14 @@ public class TcpConnectionFactory
 		
 		Table localTable = new Table();
 		Table remoteTable = new Table();
-		
+	
+		MessageAssembler messageAssembler = new MessageAssembler(); 
 		MessageParser messageParser = new MessageParser();
 		MessageObjectifier messageObjectifier = new MessageObjectifier(messageParser);
-		Reactor reactor = new Reactor(localTable, remoteTable, sender, messageObjectifier);
+		Reactor reactor = new Reactor(localTable, remoteTable, messageObjectifier);
 		
 		return	networkRule == NetworkRole.SERVER
-											?  new Server(receiver, sender)
-											:  new Client(receiver, sender, reactor); 
+											?  new Server(receiver, sender, reactor, messageAssembler)
+											:  new Client(receiver, sender, reactor, messageAssembler);
 	}
 }
