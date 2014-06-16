@@ -10,35 +10,38 @@ import ship.ShipContainer;
 public class Table {
 
 	private final int TABLE_WIDTH = 8;
-	private int size;
+	private Point size;
 	private ShipContainer shipContainer;
 	private List<Cell> missedCells;
 	private static final String shipsFile = "D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt";
 	private String shipData;
 
 	
-	public int getSize() {
+	public Point getSize() {
 		return size;
 	}
 	//	This is only allowed to call at the client side. After the empty constructor.
-	public void setSize(int size) {
+	public void setSize(final Point size) {
 		this.size = size;
 	}
 
 	
 	//	
 	public Table() {
-		size = TABLE_WIDTH;
+		size = new Point(TABLE_WIDTH, TABLE_WIDTH);
 		init();
 	}
 	
 	
 
-	public Table(int size) {
-		if ( size < 1  ||  size > 8 )
-			throw new IllegalArgumentException("Size is " + size
-					+ ". However it should be between 1 and 8 inclusive.");
-		this.size = size;
+	public Table(final Point dimensions) {
+		if ( dimensions.getX() < 8  ||  40 < dimensions.getX() )
+			throw new IllegalArgumentException("Width is " + dimensions.getX()
+												+ ". However it should be between 8 and 40 inclusive.");
+		if ( dimensions.getY() < 8  ||  40 < dimensions.getY() )
+			throw new IllegalArgumentException("Height is " + dimensions.getY()
+												+ ". However it should be between 8 and 40 inclusive.");
+		this.size = dimensions;
 		init();
 	}
 
@@ -112,8 +115,8 @@ public class Table {
 
 	public void printTable()
 	{
-		for (int y = 0; y < size; y++) {
-		for (int x = 0; x < size; x++)
+		for (int y = 0; y < size.getY(); y++) {
+		for (int x = 0; x < size.getX(); x++)
 		{
 			boolean alreadyPrintChar = false;
 			if ( wasMissedAtPosition(x, y) ) {
@@ -140,10 +143,10 @@ public class Table {
 			if ( !alreadyPrintChar )
 				System.out.print( " ~");
 
-			if ( x == size - 1 )
+			if ( x == size.getX() - 1 )
 				System.out.println( "" );
 		}
-		if ( y == size - 1 )
+		if ( y == size.getY() - 1 )
 			System.out.println( "\n" );
 		}
 	}

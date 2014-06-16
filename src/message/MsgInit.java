@@ -16,7 +16,7 @@ public class MsgInit extends AbstractMessage {
 	public Action getAction() {
 		return new Action() {
 			public void apply(Table localTable, Table remoteTable) {
-				localTable.setSize( tableSize.getX() );
+				localTable.setSize( tableSize );
 				System.out.println("The server sent the init message.");
 			}
 		};

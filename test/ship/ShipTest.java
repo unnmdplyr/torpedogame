@@ -321,7 +321,7 @@ public class ShipTest extends TestCase {
 
 		for (int i=0; i < 1000; i++)
 		{
-			Point offset = shipToPlace.determinePlaceForTheShip(8);
+			Point offset = shipToPlace.determinePlaceForTheShip(new Point(8,8));
 			assertEquals( true, (offset.getX() < 4  &&  offset.getY() > 3)
 							||  (offset.getX() < 5  &&  offset.getY() < 4) );
 		}

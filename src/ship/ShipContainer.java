@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import table.Point;
 import customship.CustomShipLoader;
 
 public class ShipContainer implements Iterable<Ship> {
@@ -14,7 +15,7 @@ public class ShipContainer implements Iterable<Ship> {
 	
 
 	
-	public void loadShips(final int tableSize)
+	public void loadShips(final Point tableSize)
 	{
 		CustomShipLoader shipLoader = new CustomShipLoader(this, tableSize);
 		

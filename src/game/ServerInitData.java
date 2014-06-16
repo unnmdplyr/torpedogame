@@ -1,6 +1,8 @@
 package game;
 
+import table.Point;
+
 public class ServerInitData extends InitData {
 
-	public int tableSize = 8;
+	public Point tableSize = new Point(8,8);
 }

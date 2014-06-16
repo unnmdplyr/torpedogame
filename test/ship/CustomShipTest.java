@@ -17,11 +17,11 @@ public class CustomShipTest extends TestCase {
 	{
 		ShipContainer shipContainer = new ShipContainer();
 		
-		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, 8);
+		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, new Point(8,8));
 		
 		try ( FileReader fil = new FileReader("test/ship/2_four_lenght_ships.txt"); )
 		{
-			shipLoader.loadShipsFromStream(fil );
+			shipLoader.loadShipsFromStream(fil);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -41,9 +41,9 @@ public class CustomShipTest extends TestCase {
 	{
 		ShipContainer shipContainer = new ShipContainer();
 		
-		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, 8);
+		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, new Point(8,8));
 		
-		String shipData = shipLoader.readFileContent("D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt");
+		String shipData = shipLoader.readFileContent("ships.txt");
 		
 		java.io.Reader reader = new java.io.StringReader(shipData);
 		

@@ -22,7 +22,7 @@ public class Game {
 			ServerInitData initData = new ServerInitData();
 
 			if ( args.length > 1 ) initData.userName = args[1];
-			if ( args.length > 2 ) initData.tableSize = new MessageParser().parseTableSize(args[2]).getX(); 
+			if ( args.length > 2 ) initData.tableSize = new MessageParser().parseTableSize(args[2]); 
 			if ( args.length > 3 ) initData.portNumber = Integer.parseInt(args[3]);
 
 			TcpConnection server = new TcpConnectionFactory().create(NetworkRole.SERVER);

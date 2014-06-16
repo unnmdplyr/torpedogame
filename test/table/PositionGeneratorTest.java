@@ -8,12 +8,12 @@ public class PositionGeneratorTest extends TestCase {
 
 	public void testPositionGenerator()
 	{
-		final int tableSize = 8;
+		final Point tableSize = new Point(8,8);
 		ShipContainer shipContainer = new ShipContainer();
 
 		CustomShip ship = new CustomShip(shipContainer);
 	
-		for (int x = 4; x < tableSize; x++) {			
+		for (int x = 4; x < tableSize.getX(); x++) {			
 			ship.addCoveredCell(new Cell(1, x, 0));
 		}
 		
@@ -25,7 +25,7 @@ public class PositionGeneratorTest extends TestCase {
 			Point offset = positionGenerator.genereateNewPosition(extent);
 			
 			assertEquals( true, offset.getX() > -1  &&  offset.getX() < 5
-							&&  offset.getY() > -1  &&  offset.getY() < tableSize );
+							&&  offset.getY() > -1  &&  offset.getY() < tableSize.getY() );
 		}
 		
 	}

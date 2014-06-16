@@ -42,7 +42,7 @@ public abstract class Ship implements Iterable<Cell>
 		return false;
 	}
 	
-	public Point determinePlaceForTheShip(final int tableSize)
+	public Point determinePlaceForTheShip(final Point tableSize)
 	{
 		final PositionGenerator positionGenerator = new PositionGenerator(tableSize);
 		final Point extent = determineExtent();

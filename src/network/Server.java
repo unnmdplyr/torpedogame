@@ -47,8 +47,7 @@ public class Server extends TcpConnection
 	protected void networkRoleSpecificNegotiation() throws IOException
 	{
 		//	Init
-		getSender().sendMessage( messageAssembler.createInit( initData.tableSize
-															, initData.tableSize) );
+		getSender().sendMessage( messageAssembler.createInit( initData.tableSize ) );
 		
 		//	Opponent Name
 		String message = getReceiver().receiveMessage();

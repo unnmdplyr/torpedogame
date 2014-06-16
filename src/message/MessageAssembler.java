@@ -1,16 +1,21 @@
 package message;
 
+import table.Point;
+
 public class MessageAssembler {
 
 
-	public String createInit(final int width, final int height) {
+	public String createInit(final Point dimensions) {
 		
-		if ( width != height )
-			System.out.println( "WARNIG: The width and height do not match. " +
-						"(" + width + " != " + height + ") Only width will be used." );
+		if ( dimensions.getX() < 8 )
+			System.out.println( "WARNING: The width is too small. " +
+											"(" + dimensions.getX() + ") It must be at least 8." );
+		if ( dimensions.getY() < 8 )
+			System.out.println( "WARNING: The height is too small. " +
+											"(" + dimensions.getY() + ") It must be at least 8." );
 
 		return new StringBuilder()	.append(MessageTypes.INIT_PREFIX).append(" ")
-									.append(width).append(", ").append(height)
+									.append(dimensions.getX()).append(", ").append(dimensions.getY())
 									.toString();
 	}
 	

@@ -53,7 +53,7 @@ public class MessageParser {
 				break;
 
 		return new Point( Integer.parseInt(widthStr)
-						, Integer.parseInt(heightStr != null  ?  heightStr  :  "0") );
+						, Integer.parseInt(heightStr != null  ?  heightStr  :  widthStr) );
 	}
 
 	public String parseName(String message) {

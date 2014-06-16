@@ -87,7 +87,7 @@ public class MessageParserTest extends TestCase {
 		Point dimensions = new MessageParser().parseTableSize( " 8 " );
 		
 		assertEquals( dimensions.getX(), 8 );
-		assertEquals( dimensions.getY(), 0 );
+		assertEquals( dimensions.getY(), 8 );
 	}
 	
 	
@@ -114,7 +114,7 @@ public class MessageParserTest extends TestCase {
 		try {
 			String message = MessageTypes.NAME_PREFIX + "    ";
 
-			String name = new MessageParser().parseName(message);
+			new MessageParser().parseName(message);
 		} catch ( IllegalArgumentException e ) {
 			return;
 		}

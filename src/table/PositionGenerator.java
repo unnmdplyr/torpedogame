@@ -8,15 +8,15 @@ public class PositionGenerator {
 
 	public Point genereateNewPosition(Point extent)
 	{
-		final int posX = rand.nextInt(tableSize - extent.getX() + 1);
-		final int posY = rand.nextInt(tableSize - extent.getY() + 1);
+		final int posX = rand.nextInt(tableSize.getX() - extent.getX() + 1);
+		final int posY = rand.nextInt(tableSize.getY() - extent.getY() + 1);
 
 		return new Point( posX, posY );
 	}
 	
-	final int tableSize;
+	final Point tableSize;
 
-	public PositionGenerator(final int tableSize) {
+	public PositionGenerator(final Point tableSize) {
 		this.tableSize = tableSize;
 	}
 	

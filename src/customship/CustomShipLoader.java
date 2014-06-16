@@ -3,7 +3,6 @@ package customship;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import ship.ShipContainer;
 import table.Cell;
@@ -12,9 +11,9 @@ import table.Point;
 public class CustomShipLoader {
 
 	final ShipContainer shipContainer;
-	final int tableSize;
+	final Point tableSize;
 	
-	public CustomShipLoader(final ShipContainer shipContainer, final int tableSize) {
+	public CustomShipLoader(final ShipContainer shipContainer, final Point tableSize) {
 		this.shipContainer = shipContainer;
 		this.tableSize = tableSize;
 	}
