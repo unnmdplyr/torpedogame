@@ -1,31 +1,16 @@
 package ship;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import table.Point;
-import customship.CustomShipLoader;
 
 public class ShipContainer implements Iterable<Ship> {
 
 	private List<Ship> ships = new ArrayList<Ship>();
 	
-
-	
-	public void loadShips(final Point tableSize)
+	public int getShipNumber()
 	{
-		CustomShipLoader shipLoader = new CustomShipLoader(this, tableSize);
-		
-		try ( FileReader fil = new FileReader("D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt"); )
-		{
-			shipLoader.loadShipsFromStream(fil );
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		return ships.size();
 	}
 
 	public void addShip(Ship ship) {

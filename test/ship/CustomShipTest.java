@@ -2,13 +2,12 @@ package ship;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
+import junit.framework.TestCase;
 import table.Cell;
 import table.Point;
 import customship.CustomShip;
 import customship.CustomShipLoader;
-import junit.framework.TestCase;
 
 
 public class CustomShipTest extends TestCase {
@@ -35,28 +34,6 @@ public class CustomShipTest extends TestCase {
 				checkCellsInShip(cell, 8);
 			}
 		}
-	}
-	
-	public void testCustomShipLoadFromString()
-	{
-		ShipContainer shipContainer = new ShipContainer();
-		
-		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, new Point(8,8));
-		
-		String shipData = shipLoader.readFileContent("ships.txt");
-		
-		java.io.Reader reader = new java.io.StringReader(shipData);
-		
-		shipLoader.loadShipsFromStream(reader);
-		
-
-		int shipNumber = 0;
-		
-		for ( final Ship ship : shipContainer ) {
-			++shipNumber;
-		}
-
-		assertEquals( true, shipNumber > 0 );
 	}
 
 	//	Helper function. Not Test case

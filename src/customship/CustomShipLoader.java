@@ -1,7 +1,6 @@
 package customship;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import ship.ShipContainer;
@@ -70,21 +69,5 @@ public class CustomShipLoader {
 		
 		return shipTypeData.substring(0, shipTypeData.length() - 1);
 	}
-	
-	public String readFileContent( String fileName )
-	{
-		StringBuilder sb = new StringBuilder();
 
-		try( BufferedReader reader = new BufferedReader(new FileReader(fileName)) )
-		{
-			String line;
-			while ( (line = reader.readLine()) != null )
-				sb.append(line).append("\n");
-		}
-		catch(IOException e) {
-			System.out.println(e);
-		}
-
-		return sb.toString();
-	}
 }

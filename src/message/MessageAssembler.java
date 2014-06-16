@@ -24,4 +24,10 @@ public class MessageAssembler {
 		return new StringBuilder()	.append(MessageTypes.NAME_PREFIX).append(" ").append(name)
 									.toString();
 	}
+
+	public String createShips(String shipData)
+	{
+		return new StringBuilder()	.append(MessageTypes.SHIPS_PREFIX).append(" ").append(shipData)
+									.toString();
+	}
 }

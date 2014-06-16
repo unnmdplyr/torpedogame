@@ -48,13 +48,19 @@ public class Server extends TcpConnection
 	{
 		//	Init
 		getSender().sendMessage( messageAssembler.createInit( initData.tableSize ) );
-		
+		reactor.initTables( initData.tableSize );
+
+		//	Name
+		getSender().sendMessage( messageAssembler.createName( initData.userName ) );
+
 		//	Opponent Name
 		String message = getReceiver().receiveMessage();
 		reactor.reactToMessage(message, MessageType.NAME);
 		
-		//	Name
-		getSender().sendMessage( messageAssembler.createName( initData.userName ) );
+		//	Ships
+		String shipData = reactor.initShips( initData.shipFile );
+		getSender().sendMessage( messageAssembler.createShips( shipData ) );
+		
 
 	}
 	

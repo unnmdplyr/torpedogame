@@ -23,4 +23,17 @@ public class Reactor {
 		message.getAction().apply( localTable, remoteTable );
 	}
 
+	public void initTables(Point tableSize)
+	{
+		localTable .setSize(tableSize);
+		remoteTable.setSize(tableSize);
+	}
+
+	public String initShips(String shipFile)
+	{
+		String shipData = localTable.loadShipDataFromFile( shipFile );
+		System.out.println("Ship number: " + localTable.getShipNumber());
+		return shipData;
+	}
+
 }

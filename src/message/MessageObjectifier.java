@@ -22,6 +22,10 @@ public class MessageObjectifier {
 				String name = messageParser.parseName(message);
 				return new MsgName( name );
 
+			case SHIPS:
+				String shipData = messageParser.parseShips(message);
+				return new MsgShips(shipData);
+
 			default:
 				throw new IllegalArgumentException("The message couldn't be interpreted: " + message);
 		}

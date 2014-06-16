@@ -121,6 +121,37 @@ public class MessageParserTest extends TestCase {
 		
 		fail("The message shouldn't contain a string which is interpreted as a name.");
 	}
+
+
+	public void testParseShipsWithOneWhiteSpace()
+	{
+		String message = MessageTypes.SHIPS_PREFIX + " shipData";
+		
+		String name = new MessageParser().parseShips(message);
+		
+		assertEquals( name, "shipData" );
+	}
+
+	public void testParseShipsWithMoreWhiteSpace()
+	{
+		String message = MessageTypes.SHIPS_PREFIX + "    shipData";
+		
+		String name = new MessageParser().parseShips(message);
+		
+		assertEquals( name, "shipData" );
+	}
+
+	public void testParseShipsWithoutData()
+	{
+		try {
+			String message = MessageTypes.SHIPS_PREFIX + "     ";
+			
+			new MessageParser().parseShips(message);
+		} catch ( IllegalArgumentException e ) {
+			return;
+		}
+		fail("The message shouldn't contain a string which is interpreted as a shipData.");
+	}
 }
 
 

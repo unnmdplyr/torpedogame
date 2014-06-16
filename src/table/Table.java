@@ -13,26 +13,21 @@ public class Table {
 	private Point size;
 	private ShipContainer shipContainer;
 	private List<Cell> missedCells;
-	private static final String shipsFile = "D:/Users/varallyay.viktor/Projects/torpedogame/ships.txt";
-	private String shipData;
 
 	
 	public Point getSize() {
 		return size;
 	}
-	//	This is only allowed to call at the client side. After the empty constructor.
+
 	public void setSize(final Point size) {
 		this.size = size;
 	}
 
-	
-	//	
+
 	public Table() {
 		size = new Point(TABLE_WIDTH, TABLE_WIDTH);
 		init();
 	}
-	
-	
 
 	public Table(final Point dimensions) {
 		if ( dimensions.getX() < 8  ||  40 < dimensions.getX() )
@@ -50,6 +45,9 @@ public class Table {
 		missedCells = new ArrayList<>();
 	}
 
+	public int getShipNumber() {
+		return shipContainer.getShipNumber();
+	}
 	
 //	private void generateShips()
 //	{
@@ -153,21 +151,17 @@ public class Table {
 	
 
 	
-	public void loadShipData()
+	public String loadShipDataFromFile(String filename)
 	{
-		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, size);
+		String shipData = new FileReader().readFileContent(filename);
+
+		loadShipDataFromString(shipData);
 		
-		shipData = shipLoader.readFileContent(shipsFile);
-		
-		shipLoader.loadShipsFromStream(new java.io.StringReader(shipData));
-	}
-	
-	//	@prerequisite	Call the loadShipData() function before you call this function.
-	public String getShipData() {
 		return shipData;
 	}
+
 	
-	public void loadShipData(String arrivedShipData)
+	public void loadShipDataFromString(String arrivedShipData)
 	{
 		CustomShipLoader shipLoader = new CustomShipLoader(shipContainer, size);
 		

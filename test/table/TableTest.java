@@ -4,12 +4,14 @@ import junit.framework.TestCase;
 
 public class TableTest extends TestCase {
 
-	public void testIsShotHit()
+	public void testLoadShipDataFromFile_ShouldTableContainsMoreShips_WhenShipsLoadedFromFile()
 	{
 		Table table = new Table();
-		//assertEquals(true, table.isShotHit(2, 2) );
+		table.setSize( new Point(8,8) );
+		
+		table.loadShipDataFromFile("ships.txt");
+		
+		assertTrue( table.getShipNumber() > 0 );
 	}
-
-	
 
 }

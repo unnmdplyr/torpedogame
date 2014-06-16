@@ -74,4 +74,23 @@ public class MessageParser {
 
 		throw new IllegalArgumentException("NAME message doesn't contain name.");
 	}
+
+	public String parseShips(String message) {
+
+		int index = message.indexOf(MessageTypes.SHIPS_PREFIX);
+
+		if ( index < 0 )
+			throw new IllegalArgumentException( MessageTypes.SHIPS_MSG );
+
+		String[] parts = message.split(" ");
+
+		if ( !parts[0].equals(MessageTypes.SHIPS_PREFIX) )
+			throw new IllegalArgumentException("This is not SHIPS message: " + message);
+
+		for ( int i=1; i < parts.length; ++i )
+			if ( !parts[i].isEmpty() )
+				return parts[i];
+
+		throw new IllegalArgumentException("SHIPS message doesn't contain ship data.");
+	}
 }
