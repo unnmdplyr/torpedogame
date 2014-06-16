@@ -61,7 +61,13 @@ public class Server extends TcpConnection
 		String shipData = reactor.initShips( initData.shipFile );
 		getSender().sendMessage( messageAssembler.createShips( shipData ) );
 		
-
+		//	Ready incoming
+		message = getReceiver().receiveMessage();
+		reactor.reactToMessage(message, MessageType.READY);
+		
+		//	Ready
+		getSender().sendMessage( messageAssembler.createReady() );
+		
 	}
 	
 	@Override

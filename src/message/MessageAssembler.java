@@ -30,4 +30,8 @@ public class MessageAssembler {
 		return new StringBuilder()	.append(MessageTypes.SHIPS_PREFIX).append(" ").append(shipData)
 									.toString();
 	}
+
+	public String createReady() {
+		return MessageTypes.READY_PREFIX;
+	}
 }

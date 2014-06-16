@@ -26,6 +26,9 @@ public class MessageObjectifier {
 				String shipData = messageParser.parseShips(message);
 				return new MsgShips(shipData);
 
+			case READY:
+				return new MsgEmpty(message);
+
 			default:
 				throw new IllegalArgumentException("The message couldn't be interpreted: " + message);
 		}

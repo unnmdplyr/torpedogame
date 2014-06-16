@@ -50,5 +50,13 @@ public class Client extends TcpConnection
 		//	Ships
 		message = getReceiver().receiveMessage();
 		reactor.reactToMessage(message, MessageType.SHIPS);
+		
+		//	Ready
+		getSender().sendMessage( messageAssembler.createReady() );
+		
+		//	Ready incoming
+		message = getReceiver().receiveMessage();
+		reactor.reactToMessage(message, MessageType.READY);
+
 	}
 }
