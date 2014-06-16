@@ -28,6 +28,10 @@ public class NetworkReader implements Receiver {
 		String line;
 
 		while ( (line = getReader().readLine()) != null ) {
+
+			if ( line.isEmpty() )	//	This denotes the end of the transmission
+				break;
+
 			stringBuilder.append( line ).append("\n");
 		}
 		

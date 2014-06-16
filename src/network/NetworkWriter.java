@@ -23,9 +23,9 @@ public class NetworkWriter implements Sender {
 	
 	public void sendMessage(final String message)
 	{
-		getWriter().println(message);
+		getWriter().println(message + "\n");	//	The line end denotes the end of the transmission.
 		getWriter().flush();
-		System.out.println("Message sent: " + message + "\n");
+		System.out.println("Message sent: " + message);
 	}
 
 	
