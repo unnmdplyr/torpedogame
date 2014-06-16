@@ -35,7 +35,7 @@ public class NetworkReader implements Receiver {
 			stringBuilder.append( line ).append("\n");
 		}
 		
-		System.out.println("Message received: " + stringBuilder.toString() + "\n");
+		System.out.println("Message received: \"" + stringBuilder.toString().substring(0, stringBuilder.toString().length()-1) + "\"\n");
 		return stringBuilder.toString();
 	}
 	

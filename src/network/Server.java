@@ -52,6 +52,9 @@ public class Server extends TcpConnection
 		//	Opponent Name
 		String message = getReceiver().receiveMessage();
 		reactor.reactToMessage(message, MessageType.NAME);
+		
+		//	Name
+		getSender().sendMessage( messageAssembler.createName( initData.userName ) );
 
 	}
 	

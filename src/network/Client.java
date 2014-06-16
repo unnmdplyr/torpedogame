@@ -43,5 +43,9 @@ public class Client extends TcpConnection
 		//	Name
 		getSender().sendMessage( messageAssembler.createName( initData.userName ) );
 		
+		//	Opponent Name
+		message = getReceiver().receiveMessage();
+		reactor.reactToMessage(message, MessageType.NAME);
+		
 	}
 }
