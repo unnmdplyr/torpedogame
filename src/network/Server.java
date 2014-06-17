@@ -66,10 +66,16 @@ public class Server extends TcpConnection
 		reactor.reactToMessage(message, MessageType.READY);
 		
 		//	Ready
-		getSender().sendMessage( messageAssembler.createReady() );
-		
+		getSender().sendMessage( messageAssembler.createReady() );		
 	}
 	
+	@Override
+	protected void networkRoleSpecificBattle() throws IOException {
+		//	Fire incoming
+//		String message = getReceiver().receiveMessage();
+//		reactor.reactToMessage(message, MessageType.FIRE);
+	}
+
 	@Override
 	public void finalize()
 	{

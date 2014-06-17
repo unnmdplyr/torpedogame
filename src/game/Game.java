@@ -28,8 +28,6 @@ public class Game {
 			TcpConnection server = new TcpConnectionFactory().create(NetworkRole.SERVER);
 			server.start(initData);
 			server.negotiation();
-//			ServerProtocol server = new ServerProtocol( portNumber, tableSize, userName );
-//			server.establishCommunication();
 			return;
 		}
 		else if ( args[0].equalsIgnoreCase("client") )
@@ -43,8 +41,6 @@ public class Game {
 			TcpConnection client = new TcpConnectionFactory().create(NetworkRole.CLIENT);
 			client.start(initData);
 			client.negotiation();
-//			ClientProtocol client = new ClientProtocol(portNumber, hostName, userName);
-//			client.establishCommunication();
 			return;
 		}
 		else {
@@ -87,7 +83,8 @@ public class Game {
 		System.out.println("Parameters in case of server:");
 		System.out.println("\t[0]: server. Case is ignored.");
 		System.out.println("\t[1]: user name. [defaultPlayer]");
-		System.out.println("\t[2]: port number. [1146]\n");
+		System.out.println("\t[2]: table size. [\"8, 8\"]");
+		System.out.println("\t[3]: port number. [1146]\n");
 		System.out.println("Parameters in case of client:");
 		System.out.println("\t[0]: client. Case is ignored.");
 		System.out.println("\t[1]: user name. [defaultPlayer]");

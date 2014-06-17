@@ -54,12 +54,14 @@ public abstract class TcpConnection
 	{
 		try {
 			networkRoleSpecificNegotiation();
+			networkRoleSpecificBattle();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	protected abstract void networkRoleSpecificNegotiation() throws IOException;
+	protected abstract void networkRoleSpecificBattle() throws IOException;
 	
 	
 	@Override
