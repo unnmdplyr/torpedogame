@@ -27,7 +27,7 @@ public class MessageAssembler {
 
 	public String createShips(String shipData)
 	{
-		return new StringBuilder()	.append(MessageTypes.SHIPS_PREFIX).append(" ").append(shipData)
+		return new StringBuilder()	.append(MessageTypes.SHIPS_PREFIX).append(" ").append(shipData.trim())
 									.toString();
 	}
 

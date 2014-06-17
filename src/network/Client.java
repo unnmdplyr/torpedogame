@@ -57,6 +57,11 @@ public class Client extends TcpConnection
 		//	Ready incoming
 		message = getReceiver().receiveMessage();
 		reactor.reactToMessage(message, MessageType.READY);
+	}
 
+	@Override
+	protected void networkRoleSpecificBattle() throws IOException {	
+		//	Fire
+		//getSender().sendMessage( messageAssembler.createFire() );
 	}
 }
